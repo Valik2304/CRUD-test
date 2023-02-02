@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('products.create');
-});
+Route::redirect('/', 'products');
 
 Route::resource('products', ProductController::class);
