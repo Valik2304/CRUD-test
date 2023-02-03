@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -20,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::get();
+        $products = Product::paginate(5);
         return view('products.index', compact('products'));
     }
 
@@ -37,11 +38,11 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param ProductRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @return RedirectResponse|Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         Product::create($request->only(['name', 'cost', 'price', 'group']));
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
@@ -74,11 +75,12 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param ProductRequest $request
      * @param Product $product
-     * @return \Illuminate\Http\RedirectResponse|Response
+     *
+     * @return RedirectResponse|Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
         $product->update($request->only(['name', 'cost', 'price', 'group']));
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
