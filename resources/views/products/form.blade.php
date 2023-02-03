@@ -1,15 +1,15 @@
 @extends('layout.app')
+
+@section('title', isset($product) ? 'Update ' . $product->name : 'Create product')
+
 @section('content')
 
     <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Edit Post</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('products.index') }}"> Back</a>
-            </div>
+
+        <div class="pull-right">
+            <a class="btn btn-primary" href="{{ route('products.index') }}"> Back</a>
         </div>
+
     </div>
 
     @if ($errors->any())
@@ -22,28 +22,44 @@
         </div>
     @endif
 
-    <form action="{{ route('products.update',$post->id) }}" method="POST">
+    <form method="POST">
+        @if(isset($product))
+            action="{{ route('products.update', $product)}}"
+        @else
+            action="{{ route('products.store')}}"
+        @endif
         @csrf
-
-        @method('PUT')
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Title:</strong>
-                    <input type="text" name="title" value="{{ $post->title }}" class="form-control" placeholder="Title">
-                </div>
+            <div class="col">
+                <strong>Name:</strong>
+                <input type="text" name="name"
+                       value="{{isset($product) ? $product->name : null}}"
+                       class="form-control" aria-label="name" placeholder="Name...">
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Description:</strong>
-                    <textarea class="form-control" style="height:150px" name="description" placeholder="Description">{{ $post->description }}</textarea>
-                </div>
+            <div class="col">
+                <strong>Cost:</strong>
+                <input type="text" name="cost"
+                       value="{{isset($product) ? $product->cost : null}}"
+                       class="form-control" aria-label="cost" placeholder="Cost...">
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="col">
+                <strong>Price:</strong>
+                <input type="text" name="price"
+                       value="{{isset($product) ? $product->price : null}}"
+                       class="form-control" aria-label="price" placeholder="Price..">
             </div>
+
+            <div class="col">
+                <strong>Group:</strong>
+                <input type="text" name="group"
+                       value="{{isset($product) ? $product->group : null}}"
+                       class="form-control" aria-label="group" placeholder="Group...">
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit</button>
+
         </div>
     </form>
 @endsection

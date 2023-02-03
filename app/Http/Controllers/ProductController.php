@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\Product;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
 
-//    function connect()
-//    {
-//        $connect = mysqli_connect('localhost', 'root', '', 'products');
-//        if (!$connect) die(mysqli_connect_error());
-//        mysqli_set_charset($connect, "utf8");
-//    }
     /**
      * Display a listing of the resource.
      *
@@ -41,15 +38,12 @@ class ProductController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-//        $request->validate(['title' => 'required', 'description' => 'required',]);
-//
-//        Post::create($request->all());
-//
-//        return redirect()->route('products.index')->with('success', 'Post created successfully.');
+        Product::create($request->only(['name', 'cost', 'price', 'group']));
+        return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
     /**
@@ -67,9 +61,9 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param Product $product
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return Application|Factory|View|Response
      */
     public function edit(Product $product)
     {
