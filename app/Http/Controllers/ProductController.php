@@ -74,13 +74,13 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return \Illuminate\Http\RedirectResponse|Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $product->update($request->only(['name', 'cost', 'price', 'group']));
+        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
 
     /**
