@@ -13,7 +13,7 @@
 
     <a class="btn btn-success" role="button" href="{{ route('products.create') }}"> Create Product</a>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered mt-3">
         <tr>
             <th>#</th>
             <th>Title</th>
@@ -30,10 +30,9 @@
                 <td>{{ $product->price }}</td>
                 <td>{{ $product->group }}</td>
                 <td>
-                    <a type="button" class="btn btn-info" href="{{ route('products.show',$product) }}">Show</a>
-                    <a type="button" class="btn btn-warning" href="{{ route('products.edit',$product) }}">Edit</a>
                     <form action="{{ route('products.destroy',$product) }}" method="POST">
-
+                        <a type="button" class="btn btn-info" href="{{ route('products.show',$product) }}">Show</a>
+                        <a type="button" class="btn btn-warning" href="{{ route('products.edit',$product) }}">Edit</a>
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>

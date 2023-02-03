@@ -7,7 +7,7 @@
     <div class="row">
 
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('products.index') }}">Back</a>
+            <a class="btn btn-primary mt-3" href="{{ route('products.index') }}">Back</a>
         </div>
 
     </div>
@@ -65,7 +65,11 @@
                        class="form-control" aria-label="group" placeholder="Group...">
             </div>
 
-            <button type="submit" class="btn btn-success">Submit</button>
+           <div class="row">
+               <div class="col mt-3">
+                   <button type="submit" class="btn btn-success">Submit</button>
+               </div>
+           </div>
 
         </div>
     </form>
