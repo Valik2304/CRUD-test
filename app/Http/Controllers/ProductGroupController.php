@@ -18,7 +18,7 @@ class ProductGroupController extends Controller
      */
     public function index()
     {
-        $groups = ProductGroup::paginate(5);
+        $groups = ProductGroup::orderByDesc('id')->paginate(5);
         return view('groups.index', compact('groups'));
     }
 
@@ -36,22 +36,25 @@ class ProductGroupController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\RedirectResponse|Response
      */
     public function store(Request $request)
     {
-        //
+        ProductGroup::create($request->only(['name', 'temp']));
+        return redirect()->route('groups.index')->with('success', 'Group created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ProductGroup $group
+     *
+     * @return Application|Factory|View|Response
      */
-    public function show($id)
+    public function show(ProductGroup $group)
     {
-        //
+        return view('groups.show', compact('group'));
     }
 
     /**
@@ -84,10 +87,13 @@ class ProductGroupController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\RedirectResponse|Response
      */
-    public function destroy($id)
+    public function destroy(ProductGroup $group)
     {
-        //
+        $group->delete();
+        return redirect()->route('groups.index')->with('success', 'Group deleted successfully - '. $group->name);
+
     }
 }

@@ -25,7 +25,7 @@
         @foreach ($products as $product)
             <tr>
                 <td>{{ $product->id }}</td>
-                <td>{{ $product->name }}</td>
+                <td>{{ \Str::limit($product->name, 50) }}</td>
                 <td>{{ $product->cost }}</td>
                 <td>{{ $product->price }}</td>
                 <td>{{ $product->group }}</td>
