@@ -9,5 +9,5 @@ class ProductGroup extends Model
 {
     use HasFactory;
 
-
+    protected $fillable = ['name', 'temp'];
 }
