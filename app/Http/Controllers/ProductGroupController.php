@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductGroupRequest;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -39,7 +40,7 @@ class ProductGroupController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|Response
      */
-    public function store(Request $request)
+    public function store(ProductGroupRequest $request)
     {
         ProductGroup::create($request->only(['name', 'temp']));
         return redirect()->route('groups.index')->with('success', 'Group created successfully.');
@@ -77,9 +78,9 @@ class ProductGroupController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|Response
      */
-    public function update(Request $request, ProductGroup $group)
+    public function update(ProductGroupRequest $request, ProductGroup $group)
     {
-        $group->update($request->only(['name', 'temp']));
+        $group->update($request->only(['name', 'temp', 'updated_at']));
         return redirect()->route('groups.index')->with('success', 'Group updated successfully.');
     }
 
