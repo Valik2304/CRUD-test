@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGroupController;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,4 @@ Route::redirect('/', 'products');//подивитись в доку про route
 
 Route::resource('products', ProductController::class);
 Route::resource('groups', ProductGroupController::class);
+Route::resource('orders', OrderController::class);
