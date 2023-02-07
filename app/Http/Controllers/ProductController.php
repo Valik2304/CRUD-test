@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use App\Models\ProductGroup;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,6 +21,10 @@ class ProductController extends Controller
      */
     public function index()
     {
+//        $groups = Product::with('group')->get()->toArray();
+//        $groups = Product::find(1)->group->toArray();
+//        dd($groups);
+
         $products = Product::orderByDesc('id')->paginate(5);
         return view('products.index', compact('products'));
     }
@@ -31,7 +36,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.form');
+        $groups = ProductGroup::orderByDesc('id')->get(['id', 'name']);
+        return view('products.form', compact('groups'));
     }
 
     /**
@@ -43,7 +49,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create($request->only(['name', 'cost', 'price', 'group']));
+        Product::create($request->only(['name', 'cost', 'price', 'product_group_id']));
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
@@ -68,7 +74,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('products.form', compact('product'));
+        $groups = ProductGroup::all();
+        return view('products.form', compact('product', 'groups'));
     }
 
     /**
@@ -81,7 +88,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->only(['name', 'cost', 'price', 'group']));
+        $product->update($request->only(['name', 'cost', 'price', 'product_group_id']));
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
 

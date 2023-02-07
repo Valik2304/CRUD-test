@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', isset($order) ? 'Update ' . $order->id : 'Create order')
+@section('title', 'Create order')
 
 @section('content')
 
@@ -37,25 +37,21 @@
         @endif
 
         <div class="row">
-            <div class="col">
-                <strong>Id Product:</strong>
-                <input type="text" name="prod_id"
-                       value="{{isset($order) ? $order->prod_id : null}}"
-                       class="form-control" aria-label="prod_id" placeholder="ID...">
-            </div>
 
             <div class="col">
-                <strong>Date:</strong>
-                <input type="text" name="datetime"
-                       value="{{isset($order) ? $order->datetime : null}}"
-                       class="form-control" aria-label="datetime" placeholder="Date...">
+                <strong>Product:</strong>
+                <select name="product_id">
+                        @foreach($products as $product)
+                            <option label="{{$product->name}}" value="{{$product->id}}"></option>
+                        @endforeach
+                </select>
             </div>
 
-           <div class="row">
-               <div class="col mt-3">
-                   <button type="submit" class="btn btn-success">Submit</button>
-               </div>
-           </div>
+            <div class="row">
+                <div class="col mt-3">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </div>
 
         </div>
     </form>

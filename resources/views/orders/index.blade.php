@@ -17,18 +17,18 @@
         <tr>
             <th>#</th>
             <th>Date</th>
-            <th>ID Product</th>
+            <th>Product ID</th>
             <th>Action</th>
         </tr>
         @foreach ($orders as $order)
             <tr>
                 <td>{{ $order->id }}</td>
-                <td>{{ $order->datetime }}</td>
-                <td>{{ $order->prod_id }}</td>
+                <td>{{ $order->created_at }}</td>
+                <td>{{ $order->product_id }}</td>
                 <td>
                     <form action="{{ route('orders.destroy',$order) }}" method="POST">
                         <a type="button" class="btn btn-info" href="{{ route('orders.show',$order) }}">Show</a>
-                        <a type="button" class="btn btn-warning" href="{{ route('orders.edit',$order) }}">Edit</a>
+{{--                        <a type="button" class="btn btn-warning" href="{{ route('orders.edit',$order) }}">Edit</a>--}}
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>

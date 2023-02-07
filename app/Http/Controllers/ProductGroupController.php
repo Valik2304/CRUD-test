@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductGroupRequest;
+use App\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,6 +20,10 @@ class ProductGroupController extends Controller
      */
     public function index()
     {
+//        $products = ProductGroup::with('product')->get()->toArray();
+//        $products = ProductGroup::find(11)->product->toArray();//yes
+//        dd($products);
+
         $groups = ProductGroup::orderByDesc('id')->paginate(5);
         return view('groups.index', compact('groups'));
     }

@@ -19,7 +19,7 @@
             <th>Title</th>
             <th>Cost</th>
             <th>Price</th>
-            <th>Group</th>
+            <th>Group ID</th>
             <th>Action</th>
         </tr>
         @foreach ($products as $product)
@@ -28,9 +28,10 @@
                 <td>{{ \Str::limit($product->name, 50) }}</td>
                 <td>{{ $product->cost }}</td>
                 <td>{{ $product->price }}</td>
-                <td>{{ $product->group }}</td>
+                <td>{{ $product->product_group_id }}</td>
                 <td>
                     <form action="{{ route('products.destroy',$product) }}" method="POST">
+{{--                        <a type="button" class="btn btn-success" href="{{ route('orders.store',$product) }}">Order</a>--}}
                         <a type="button" class="btn btn-info" href="{{ route('products.show',$product) }}">Show</a>
                         <a type="button" class="btn btn-warning" href="{{ route('products.edit',$product) }}">Edit</a>
                         @csrf

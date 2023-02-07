@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use Illuminate\Http\Response;
@@ -26,7 +30,9 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('orders.form');//
+        $products = Product::orderByDesc('id')->get();
+
+        return view('orders.form', compact('products'));
     }
 
     /**
@@ -38,19 +44,20 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        Order::create($request->only(['datetime', 'prod_id']));
+        Order::create($request->only(['created_at', 'product_id']));
         return redirect()->route('orders.index')->with('success', 'Order created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Order $order
+     *
+     * @return Application|Factory|View|Response
      */
-    public function show($id)
+    public function show(Order $order)
     {
-        //
+        return view('orders.show', compact('order'));
     }
 
     /**
@@ -62,7 +69,7 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        return view('orders.form', compact('order'));
+
     }
 
     /**
@@ -75,18 +82,20 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        $order->update($request->only(['datetime', 'prod_id', 'updated_at']));
-        return redirect()->route('orders.index')->with('success', 'Order updated successfully.');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\RedirectResponse|Response
      */
-    public function destroy($id)
+    public function destroy(Order $order)
     {
-        //
+        $order->delete();
+        return redirect()->route('orders.index')->with('success', 'Order deleted successfully - ID:'. $order->id);
+
     }
 }

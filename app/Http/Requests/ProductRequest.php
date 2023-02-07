@@ -26,7 +26,7 @@ class ProductRequest extends FormRequest
     {
         $rules = [
             'name' => ['required', 'min:3', 'max:255'],
-            'cost' => 'required|int', 'price' => 'required|int', 'group' => 'required|min:1|max:255',
+            'cost' => 'required|int', 'price' => 'required|int',
             ];
 
         if (!empty($this->product)) {

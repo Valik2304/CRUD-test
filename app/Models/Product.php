@@ -4,11 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 
 class Product extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
 
-    protected $fillable = ['name', 'cost', 'price', 'group'];
+    protected $fillable = ['name', 'cost', 'price', 'product_group_id'];
+
+    public function group (){
+        return $this->belongsTo(ProductGroup::class);
+    }
+
+    public function order (){
+        return $this->belongsTo(Order::class);
+    }
 }

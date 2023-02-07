@@ -9,5 +9,9 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['datetime', 'prod_id'];
+    protected $fillable = ['updated_at', 'created_at', 'product_id'];
+
+    public function product (){
+        return $this->hasOne(Product::class);
+    }
 }

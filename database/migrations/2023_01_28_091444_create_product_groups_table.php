@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('product_groups', function (Blueprint $table) {
             $table->id();
+            $table->integer('product_id')->nullable();
             $table->string('name');
             $table->string('temp');
             $table->timestamps();

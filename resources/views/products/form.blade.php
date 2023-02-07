@@ -60,9 +60,11 @@
 
             <div class="col">
                 <strong>Group:</strong>
-                <input type="text" name="group"
-                       value="{{isset($product) ? $product->group : null}}"
-                       class="form-control" aria-label="group" placeholder="Group...">
+                <select name="product_group_id">
+                    @foreach($groups as $group)
+                        <option label="{{$group->name}}" value="{{$group->id}}"></option>
+                    @endforeach
+                </select>
             </div>
 
            <div class="row">

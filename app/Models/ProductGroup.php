@@ -10,4 +10,8 @@ class ProductGroup extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'temp'];
+
+    public function product (){
+        return $this->hasMany(Product::class);
+    }
 }
